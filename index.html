@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday Love!</title>
+    <style>
+        body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Darker overlay (adjust the alpha value for more/less opacity) */
+    z-index: -1; /* Ensures the overlay is behind the content */
+}
+        body { 
+            display: flex; 
+            height: 100vh; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            background-color: #ffebf0; 
+            background-size: cover;
+            background-position: center; /* Ensures background images are centered */
+            background-repeat: no-repeat; /* Prevents tiling */
+            color: #d63384; 
+            font-family: Arial, sans-serif; 
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Improves text visibility */
+        }
+        #countdown, #gift-section { 
+            font-size: 3rem; 
+            margin-bottom: 20px; 
+        }
+        #love-message { 
+            font-size: 1.5rem; 
+            margin-bottom: 30px; 
+        }
+        .gift-button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body id="main-body">
+    <h1>Happy Birthday My Love!</h1>
+    <div id="love-message">"You are the sunshine of my life."</div>
+    <div id="countdown"></div>
+    <div id="gift-section" style="display: none;">
+        <button class="gift-button" onclick="showGift(1)">Open Gift 1</button>
+        <div id="gift-message"></div>
+    </div>
+
+    <script>
+        //const birthday = new Date("2025-04-15T00:00:00").getTime();
+        const birthday = new Date(new Date().getTime() + 10000); // 10 seconds from now
+        const loveMessages = [
+    "You are the reason I smile every morning.",
+    "With you, my heart feels at home.",
+    "Your love fills my life with endless joy.",
+    "I fall in love with you more every day.",
+    "You complete my world in ways I never imagined.",
+    "My happiest moments are the ones I spend with you.",
+    "You are my safe place, my peace, my everything.",
+    "Your laughter is the sweetest melody to my heart.",
+    "Life feels perfect when I'm by your side.",
+    "You make my ordinary days extraordinary.",
+    "Every moment spent with you is a treasure.",
+    "Your smile makes my world brighter.",
+    "You are my sunshine, even on the darkest days.",
+    "With you, I feel like the luckiest person in the world.",
+    "You are the dream I never knew I had.",
+    "Your love is my strength, my inspiration, my everything.",
+];
+
+        const backgroundImages = [
+            "url('bg1.jpg')",
+            "url('bg2.HEIC')",
+            "url('bg3.jpg')",
+            "url('bg4.jpg')",
+            "url('bg5.jpg')",
+            "url('bg6.jpg')",
+            "url('bg7.jpg')"
+        ];
+        
+        function changeBackground() {
+            //const index = Math.floor((new Date().getTime() / (1000 * 60 * 60 * 6)) % backgroundImages.length);
+            const index = Math.floor((new Date().getTime() / (5000)) % backgroundImages.length);
+            document.getElementById("main-body").style.backgroundImage = backgroundImages[index];
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = birthday - now;
+            
+            if (timeLeft <= 0) {
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("gift-section").style.display = "block";
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        function updateLoveMessage() {
+            //const index = Math.floor((new Date().getTime() / (1000 * 60 * 60 * 6)) % loveMessages.length);
+            const index = Math.floor((new Date().getTime() / (5000)) % loveMessages.length);
+            document.getElementById("love-message").innerHTML = loveMessages[index];
+        }
+
+        function showGift(giftNumber) {
+            const messages = [
+    "Gift 1: The dress you loved — I knew the moment you saw it, you'd look stunning in it. But let's be honest, you look amazing in everything!",
+    "Gift 2: You once said you wanted to wear something from me every day, so here's a necklace — a little reminder that I'm always close to your heart.",
+    "Gift 3: A powerbank — to make sure your phone never runs out of charge. And yes, it’s wireless! Just stick it to your phone and stay powered up, just like you always keep me going." 
+];
+
+            if (giftNumber <= 3) {
+                document.getElementById("gift-message").innerHTML = messages[giftNumber - 1];
+                document.getElementById("main-body").style.backgroundImage = backgroundImages[(giftNumber - 1) % backgroundImages.length];
+                if (giftNumber < 3) {
+                    setTimeout(() => {
+                        const nextButton = document.createElement("button");
+                        nextButton.className = "gift-button";
+                        nextButton.innerText = `Open Gift ${giftNumber + 1}`;
+                        nextButton.onclick = () => showGift(giftNumber + 1);
+                        document.getElementById("gift-section").appendChild(nextButton);
+                    }, 1000);
+                }
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        //setInterval(updateLoveMessage, 1000 * 60 * 60 * 6);
+        setInterval(updateLoveMessage, 5000);
+        //setInterval(changeBackground, 1000 * 60 * 60 * 6);
+        setInterval(changeBackground, 5000);
+        updateCountdown();
+        updateLoveMessage();
+        changeBackground();
+    </script>
+</body>
+</html>
