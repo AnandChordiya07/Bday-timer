@@ -58,7 +58,8 @@
 
     <script>
         //const birthday = new Date("2025-04-15T00:00:00").getTime();
-        const birthday = new Date(new Date().getTime() + 10000); // 10 seconds from now
+        const birthday = new Date("2025-03-13T18:30:00Z").getTime();
+        //const birthday = new Date(new Date().getTime() + 10000); // 10 seconds from now
         const loveMessages = [
     "You are the reason I smile every morning.",
     "With you, my heart feels at home.",
@@ -79,8 +80,8 @@
 ];
 
         const backgroundImages = [
-            "url('bg1.jpg')",
             "url('bg2.HEIC')",
+            "url('bg1.jpg')",
             "url('bg3.jpg')",
             "url('bg4.jpg')",
             "url('bg5.jpg')",
@@ -89,8 +90,8 @@
         ];
         
         function changeBackground() {
-            //const index = Math.floor((new Date().getTime() / (1000 * 60 * 60 * 6)) % backgroundImages.length);
-            const index = Math.floor((new Date().getTime() / (5000)) % backgroundImages.length);
+            const index = Math.floor((new Date().getTime() / (1000 * 60 * 60 * 6)) % backgroundImages.length);
+            //const index = Math.floor((new Date().getTime() / (5000)) % backgroundImages.length);
             document.getElementById("main-body").style.backgroundImage = backgroundImages[index];
         }
 
@@ -113,8 +114,8 @@
         }
 
         function updateLoveMessage() {
-            //const index = Math.floor((new Date().getTime() / (1000 * 60 * 60 * 6)) % loveMessages.length);
-            const index = Math.floor((new Date().getTime() / (5000)) % loveMessages.length);
+            const index = Math.floor((new Date().getTime() / (1000 * 60 * 60 * 6)) % loveMessages.length);
+            //const index = Math.floor((new Date().getTime() / (5000)) % loveMessages.length);
             document.getElementById("love-message").innerHTML = loveMessages[index];
         }
 
@@ -141,10 +142,10 @@
         }
 
         setInterval(updateCountdown, 1000);
-        //setInterval(updateLoveMessage, 1000 * 60 * 60 * 6);
-        setInterval(updateLoveMessage, 5000);
-        //setInterval(changeBackground, 1000 * 60 * 60 * 6);
-        setInterval(changeBackground, 5000);
+        setInterval(updateLoveMessage, 1000 * 60 * 60 * 6);
+        //setInterval(updateLoveMessage, 5000);
+        setInterval(changeBackground, 1000 * 60 * 60 * 6);
+        //setInterval(changeBackground, 5000);
         updateCountdown();
         updateLoveMessage();
         changeBackground();
